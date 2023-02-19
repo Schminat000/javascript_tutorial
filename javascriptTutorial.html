@@ -1,0 +1,211 @@
+<!--javascriptTutorial.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Tutorial</title>
+    
+    <!--This is the Javascript for the calcultor which
+        utilizes the JQuery library.-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+
+            // Defines a function to handle the calculating part of the
+            // calculator.
+            $(document).ready(function()
+            {
+                // Defines the variables.
+                var num1 = "";
+                var num2 = "";
+                var operator = "";
+                
+                // Defines the clear function to clear the text.
+                function clear()
+                {
+                    num1 = "";
+                    num2 = "";
+                    operator = "";
+                    $("#result").text("");
+                }
+                
+                // Defines the calculate function to do the calculations.
+                function calculate()
+                {
+                    var result = 0;
+
+                    // Uses a switch case function to handle the operators.
+                    switch (operator)
+                    {
+                        case "+":
+                            result = parseFloat(num1) + parseFloat(num2);
+                            break;
+                        case "-":
+                            result = parseFloat(num1) - parseFloat(num2);
+                            break;
+                        case "*":
+                            result = parseFloat(num1) * parseFloat(num2);
+                            break;
+                        case "/":
+                            result = parseFloat(num1) / parseFloat(num2);
+                            break;
+                    }
+                    $("#result").text(result);
+                }
+                
+                // When a button is clicked, it runs a function.
+                $("button").click(function()
+                {
+                    // Clears the text.
+                    var val = $(this).text();
+                    if (val == "C")
+                    {
+                        clear();
+                    }
+
+                    // Displays operators.
+                    else if (val == "+" || val == "-" || val == "*" || val == "/")
+                    {
+                        operator = val;
+                    }
+
+                    // Displays the first number.
+                    else if (operator == "")
+                    {
+                        num1 += val;
+                        $("#result").text(num1);
+                    }
+
+                    // Displays the second number.
+                    else
+                    {
+                        num2 += val;
+                        $("#result").text(num2);
+                    }
+
+                    // If the first number, second number, and third number aren't
+                    // empty, then it runs the calculator.
+                    if (num1 !== "" && num2 !== "" && operator !== "")
+                    {
+                        calculate();
+                    }
+                });
+            });
+        </script>
+
+        <!--This is the Javascript for finding a factorial.-->
+        <script>
+
+            // Defines a function to process and display results.
+            function calculateFactorial()
+            {
+                const num = parseInt(document.getElementById("num").value);
+                const output = document.getElementById("factorialOutput");
+
+                // Determines if the number entered is an actual number.
+                if (isNaN(num))
+                {
+                    output.innerHTML = "Please enter a valid number.";
+                    return;
+                }
+
+                // Determines if the number is negative.
+                if (num < 0)
+                {
+                    output.innerHTML = "Factorial is not defined for negative numbers.";
+                    return;
+                }
+                output.innerHTML = `Factorial of ${num} is ${factorial(num)}.`;
+            }
+
+                // Defines the factorial function.
+                function factorial(n)
+                {
+                    if (n == 0)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return n * factorial(n - 1);
+                    }
+                }
+        </script>
+
+        <!--This is the Javascript for arrays.-->
+        <script>
+            // Define an array of numbers.
+            const numbers = [1, 2, 3, 4, 5];
+
+            // Modifies the array by adding a number.
+            numbers.push(6);
+
+            // Modifies the array by removing a specified number.
+            numbers.splice(2, 1);
+
+            // Define a function to display the numbers in the array.
+            function showNumbers()
+            {
+                const outputDiv = document.getElementById("arrayOutput");
+                outputDiv.innerHTML = 'The numbers are: ' + numbers.join(", ");
+            }
+        </script>
+</head>
+<body>
+    <!--This creates the calculator buttons and displays the results.-->
+    <h1>Calculator</h1>
+    <div id="calculator">
+        <div id="result"></div>
+        <table>
+        <tr>
+            <td><button>7</button></td>
+            <td><button>8</button></td>
+            <td><button>9</button></td>
+            <td><button>+</button></td>
+        </tr>
+        <tr>
+            <td><button>4</button></td>
+            <td><button>5</button></td>
+            <td><button>6</button></td>
+            <td><button>-</button></td>
+        </tr>
+        <tr>
+            <td><button>1</button></td>
+            <td><button>2</button></td>
+            <td><button>3</button></td>
+            <td><button>*</button></td>
+        </tr>
+        <tr>
+            <td><button>C</button></td>
+            <td><button>0</button></td>
+            <td><button>.</button></td>
+            <td><button>=</button></td>
+            <td><button>/</button></td>
+        </tr>
+        </table>
+    </div>
+
+    <br>
+
+    <!--This creates the factorial calculator button and displays the results.-->
+    <h1>Factorial Calculator</h1>
+    <div>
+        <label for="num">Enter a number:</label>
+        <input type="number" id="num">
+        <br>
+        <button onclick="calculateFactorial()">Calculate Factorial</button>
+        <p id="factorialOutput"></p>
+    </div>
+
+    <br>
+
+    <!--This creates the array example and displays the results.-->
+    <h1>Array Example</h1>
+    <div>
+        <p>Click the button to display the numbers stored in the array:</p>
+        <button onclick="showNumbers()">Show Numbers</button>
+        <div id="arrayOutput"></div>
+    </div>
+</body>
+</html>
